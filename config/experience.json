@@ -1,0 +1,17 @@
+[
+  {
+    "company": "Petrobras",
+    "role": "Analista de Dados BI",
+    "description": "Desenvolvimento de soluções de Business Intelligence para análise de dados operacionais e estratégicos, implementação de dashboards interativos com Power BI e automação de processos com n8n."
+  },
+  {
+    "company": "F5Data LTDA",
+    "role": "Consultor BI",
+    "description": "Consultoria em projetos de Business Intelligence, implementação de soluções de análise de dados, desenvolvimento de modelos de dados e integração de sistemas com ferramentas de automação."
+  },
+  {
+    "company": "FireDev IT Solution",
+    "role": "Analista de BI",
+    "description": "Desenvolvimento de soluções de BI, implementação de projetos de automação com n8n e integração de algoritmos de IA para análise preditiva e processamento de dados."
+  }
+] 

@@ -1,0 +1,12 @@
+Para o carrossel funcionar corretamente, você precisa adicionar as seguintes imagens neste diretório:
+
+1. bi-dashboard.jpg - Uma imagem de dashboard de BI
+2. ai-robot.jpg - Uma imagem representando IA
+3. automation-flow.jpg - Uma imagem de automação
+
+Você pode encontrar imagens gratuitas em:
+- Unsplash (https://unsplash.com)
+- Pexels (https://pexels.com)
+- Pixabay (https://pixabay.com)
+
+Dimensões recomendadas: 1920x1080 pixels 
