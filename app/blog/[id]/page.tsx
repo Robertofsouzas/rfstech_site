@@ -22,11 +22,11 @@ const formatDate = (dateString: string) => {
 
 interface PageProps {
   params: Promise<{ id: string }>
-  searchParams: { [key: string]: string | string[] | undefined }
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
-export default async function BlogPostPage({ params }: PageProps) {
-  const resolvedParams = await params
+export default async function BlogPostPage({ params, searchParams }: PageProps) {
+  const [resolvedParams, resolvedSearchParams] = await Promise.all([params, searchParams])
   const post = blogPosts.find(p => p.id === parseInt(resolvedParams.id)) || blogPosts[0]
 
   return (
