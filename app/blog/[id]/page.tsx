@@ -20,13 +20,12 @@ const formatDate = (dateString: string) => {
   })
 }
 
-interface PageProps {
-  params: {
-    id: string
-  }
+type Props = {
+  params: { id: string }
+  searchParams: { [key: string]: string | string[] | undefined }
 }
 
-export default function BlogPostPage({ params }: PageProps) {
+export default async function BlogPostPage({ params }: Props) {
   const post = blogPosts.find(p => p.id === parseInt(params.id)) || blogPosts[0]
 
   return (
