@@ -64,24 +64,30 @@ export default function AdminExperiencePage() {
       <CardContent className="space-y-4">
         {data.map((exp, i) => (
           <div key={i} className="border p-4 rounded-lg space-y-2">
-            <Input
-              label="Empresa"
-              value={exp.company}
-              onChange={e => handleChange(i, "company", e.target.value)}
-              placeholder="Nome da empresa"
-            />
-            <Input
-              label="Cargo"
-              value={exp.role}
-              onChange={e => handleChange(i, "role", e.target.value)}
-              placeholder="Cargo"
-            />
-            <Textarea
-              label="Descrição"
-              value={exp.description}
-              onChange={e => handleChange(i, "description", e.target.value)}
-              placeholder="Descrição das atividades"
-            />
+            <div className="space-y-2">
+              <label className="font-medium">Empresa</label>
+              <Input
+                value={exp.company}
+                onChange={e => handleChange(i, "company", e.target.value)}
+                placeholder="Nome da empresa"
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="font-medium">Cargo</label>
+              <Input
+                value={exp.role}
+                onChange={e => handleChange(i, "role", e.target.value)}
+                placeholder="Cargo"
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="font-medium">Descrição</label>
+              <Textarea
+                value={exp.description}
+                onChange={e => handleChange(i, "description", e.target.value)}
+                placeholder="Descrição das atividades"
+              />
+            </div>
             <Button type="button" variant="destructive" onClick={() => handleRemove(i)} disabled={data.length === 1}>Remover</Button>
           </div>
         ))}
