@@ -26,7 +26,7 @@ interface Project {
   fullDescription: string
   image?: string
   embedUrl?: string
-  height?: number
+  height?: string
 }
 
 // Dados de exemplo para benefícios e tecnologias
