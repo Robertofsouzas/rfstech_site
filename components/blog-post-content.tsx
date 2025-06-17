@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import { SocialShare } from "@/components/social-share"
+import Image from "next/image"
 
 interface BlogPostContentProps {
   post: {
