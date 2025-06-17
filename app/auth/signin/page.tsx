@@ -1,117 +1,89 @@
-'use client'
+"use client"
 
-import { signIn, getProviders } from 'next-auth/react'
-import { useState, useEffect } from 'react'
-import type { ClientSafeProvider, LiteralUnion } from 'next-auth/react'
-import type { BuiltInProviderType } from 'next-auth/providers/index'
-import { useRouter, useSearchParams } from 'next/navigation' // Importar useSearchParams
+import { Suspense } from "react"
+import { useSearchParams } from "next/navigation"
+import { signIn } from "next-auth/react"
+import { Button } from "@/components/ui/button"
+import { SiteHeader } from "@/components/site-header"
+import { SiteFooter } from "@/components/site-footer"
 
-// Importar componentes de UI (ajuste conforme sua biblioteca de UI)
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-
-export default function SignInPage() {
-  const router = useRouter()
-  const searchParams = useSearchParams() // Usar searchParams para obter o callbackUrl
-  const callbackUrl = searchParams.get('callbackUrl') || '/admin' // Se não houver callbackUrl, redirecionar para /admin
-
-  const [providers, setProviders] = useState<Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider> | null>(null)
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
-
-  useEffect(() => {
-    (async () => {
-      const res = await getProviders()
-      setProviders(res)
-    })()
-  }, [])
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
-    setError('')
-
-    const result = await signIn('credentials', {
-      redirect: false, 
-      username,
-      password,
-      // callbackUrl: callbackUrl, // Passar o callbackUrl para o signIn
-    })
-
-    setIsLoading(false)
-
-    if (result?.error) {
-      setError(result.error === "CredentialsSignin" ? "Credenciais inválidas. Tente novamente." : result.error)
-    } else if (result?.ok) {
-      router.push(callbackUrl) // Usar o callbackUrl obtido
-    }
-  }
+function SignInContent() {
+  const searchParams = useSearchParams()
+  const callbackUrl = searchParams.get("callbackUrl") || "/"
+  const error = searchParams.get("error")
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100 dark:bg-gray-900 px-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="space-y-1 text-center">
-          <CardTitle className="text-2xl">Login</CardTitle>
-          <CardDescription>
-            Acesse sua área administrativa.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="username">Usuário</Label>
-              <Input
-                id="username"
-                type="text"
-                placeholder="admin"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-                disabled={isLoading}
-              />
+    <div className="flex min-h-screen flex-col">
+      <SiteHeader />
+      <main className="flex-1">
+        <section className="w-full py-12 md:py-24 lg:py-32">
+          <div className="container px-4 md:px-6">
+            <div className="mx-auto max-w-md space-y-6">
+              <div className="space-y-2 text-center">
+                <h1 className="text-3xl font-bold">Login</h1>
+                <p className="text-rfs-black/70 dark:text-rfs-white/70">
+                  Entre com sua conta para continuar
+                </p>
+              </div>
+              {error && (
+                <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-600 dark:border-red-800 dark:bg-red-950 dark:text-red-400">
+                  {error === "CredentialsSignin"
+                    ? "Email ou senha inválidos"
+                    : "Ocorreu um erro ao fazer login"}
+                </div>
+              )}
+              <div className="space-y-4">
+                <Button
+                  className="w-full"
+                  onClick={() => signIn("google", { callbackUrl })}
+                >
+                  <svg
+                    className="mr-2 h-4 w-4"
+                    aria-hidden="true"
+                    focusable="false"
+                    data-prefix="fab"
+                    data-icon="google"
+                    role="img"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 488 512"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"
+                    ></path>
+                  </svg>
+                  Entrar com Google
+                </Button>
+              </div>
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="password">Senha</Label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="admin"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                disabled={isLoading}
-              />
-            </div>
-            {error && (
-              <p className="text-sm text-red-600 dark:text-red-400 text-center">{error}</p>
-            )}
-            <Button type="submit" className="w-full bg-rfs-blue hover:bg-rfs-blue/90" disabled={isLoading}>
-              {isLoading ? 'Entrando...' : 'Entrar'}
-            </Button>
-          </form>
-        </CardContent>
-        {providers && Object.values(providers).map((provider) => {
-          if (provider.id === 'credentials') return null 
-          return (
-            <CardFooter key={provider.name} className="flex flex-col space-y-2 pt-4 mt-4 border-t">
-              <p className="text-xs text-gray-500 dark:text-gray-400">Ou entre com</p>
-              <Button
-                variant="outline"
-                onClick={() => signIn(provider.id, { callbackUrl })}
-                className="w-full"
-                disabled={isLoading}
-              >
-                {/* Idealmente, adicionar ícones aqui para cada provedor */}
-                {provider.name}
-              </Button>
-            </CardFooter>
-          )
-        })}
-      </Card>
+          </div>
+        </section>
+      </main>
+      <SiteFooter />
     </div>
+  )
+}
+
+export default function SignInPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex min-h-screen flex-col">
+        <SiteHeader />
+        <main className="flex-1">
+          <section className="w-full py-12 md:py-24 lg:py-32">
+            <div className="container px-4 md:px-6">
+              <div className="mx-auto max-w-md space-y-6">
+                <div className="space-y-2 text-center">
+                  <h1 className="text-3xl font-bold">Carregando...</h1>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+        <SiteFooter />
+      </div>
+    }>
+      <SignInContent />
+    </Suspense>
   )
 } 
