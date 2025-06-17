@@ -1,10 +1,11 @@
 {
   "title": "Sobre Mim",
-  "description": "Analista de Dados BI | Transformando Dados em Estratégias com Impacto Tangível",
+  "description": "Transformo dados em decisões estratégicas há mais de 4 anos. Especializado em Power BI, SQL, Python e N8N, criei soluções de BI e automação para empresas como Petrobras e consultorias renomadas.",
   "paragraphs": [
-    "Com mais de 4 anos de experiência em Business Intelligence, sou especializado em transformar dados brutos em insights estratégicos que impulsionam decisões corporativas. Minha expertise abrange ferramentas como Power BI, Microsoft Fabric, Databricks, Pentaho, SQL e Python, com foco em ETL, modelagem de dados, automação de processos e governança de dados.",
-    "Tenho orgulho de ter atuado em empresas de grande porte, como a Petrobras, e em consultorias de TI renomadas, como F5Data LTDA e FireDev IT Solution. Minha trajetória inclui liderar projetos de BI desde o levantamento de requisitos até a implementação de soluções robustas de análise de dados, entregando valor real para as organizações.",
-    "Além disso, possuo experiência avançada em automação de processos com n8n, criando fluxos de trabalho inteligentes que otimizam operações e eliminam tarefas repetitivas. Minha expertise em integração de sistemas permite conectar diferentes plataformas e APIs, criando ecossistemas de dados coesos e eficientes.",
-    "Na área de Inteligência Artificial, desenvolvo soluções que combinam análise de dados tradicional com algoritmos de IA para identificar padrões, prever tendências e gerar recomendações automatizadas. Trabalho com modelos de machine learning e processamento de linguagem natural para extrair insights mais profundos dos dados e criar dashboards inteligentes com capacidades preditivas."
+    "Minha expertise:",
+    "Business Intelligence: Dashboards interativos, modelagem de dados e análises preditivas",
+    "Automação N8N: Fluxos inteligentes que eliminam tarefas repetitivas e integram sistemas",
+    "Integração de Dados: Conectar APIs, bancos e plataformas em ecossistemas coesos",
+    "Entrego soluções completas: desde o levantamento de requisitos até dashboards inteligentes que geram valor real para o negócio."
   ]
 } 
