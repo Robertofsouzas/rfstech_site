@@ -16,8 +16,21 @@ import { formatDate } from "@/lib/utils"
 // Importar o componente PowerBiDemo
 import { PowerBiDemo } from "@/components/power-bi-demo"
 
+type ProjectType = "power-bi" | "n8n"
+
+interface Project {
+  slug: string
+  title: string
+  type: ProjectType
+  date: string
+  fullDescription: string
+  image?: string
+  embedUrl?: string
+  height?: number
+}
+
 // Dados de exemplo para benefícios e tecnologias
-const projectBenefits = {
+const projectBenefits: Record<ProjectType, string[]> = {
   "power-bi": [
     "Visão consolidada de todos os indicadores",
     "Análise de tendências e projeções futuras",
@@ -32,7 +45,7 @@ const projectBenefits = {
   ],
 }
 
-const projectTechnologies = {
+const projectTechnologies: Record<ProjectType, string[]> = {
   "power-bi": ["Microsoft Power BI", "DAX avançado", "SQL Server", "Modelagem dimensional"],
   n8n: ["n8n", "REST API", "Webhooks", "JSON Processing"],
 }
@@ -41,7 +54,7 @@ export default function ProjectPage() {
   const params = useParams()
   const router = useRouter()
   const { projects } = useProjectStore()
-  const [project, setProject] = useState<any>(null)
+  const [project, setProject] = useState<Project | null>(null)
   const [isClient, setIsClient] = useState(false)
   const slug = params?.slug as string
 
