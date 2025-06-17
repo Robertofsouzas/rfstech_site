@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { Share2, Copy, Facebook, Twitter, LinkedIn, WhatsApp } from "lucide-react"
+import { Share2, Copy, Facebook, Twitter, Linkedin, MessageCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/components/ui/use-toast"
 import { ShareByEmail } from "@/components/share-by-email"
@@ -52,13 +52,13 @@ export function SocialShare({ url, title, description }: SocialShareProps) {
     },
     {
       name: "LinkedIn",
-      icon: LinkedIn,
+      icon: Linkedin,
       url: `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}&summary=${encodeURIComponent(description)}`,
       color: "bg-[#0A66C2] hover:bg-[#0A66C2]/90"
     },
     {
       name: "WhatsApp",
-      icon: WhatsApp,
+      icon: MessageCircle,
       url: `https://api.whatsapp.com/send?text=${encodeURIComponent(`${title}\n\n${description}\n\n${url}`)}`,
       color: "bg-[#25D366] hover:bg-[#25D366]/90"
     }

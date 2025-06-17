@@ -1,5 +1,13 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
+import { User } from "next-auth"
+
+// Estendendo o tipo User para incluir a role
+declare module "next-auth" {
+  interface User {
+    role?: string
+  }
+}
 
 // Variável de ambiente para o segredo de autenticação.
 // !! IMPORTANTE !! Gere um segredo forte e aleatório para produção!
@@ -11,8 +19,7 @@ if (process.env.NODE_ENV === 'production' && authSecret === "default_secret_for_
   console.warn("AVISO: AUTH_SECRET não está configurado para produção! Use um segredo forte e aleatório.")
 }
 
-export const authOptions = {
-  // https://next-auth.js.org/configuration/providers
+const handler = NextAuth({
   providers: [
     CredentialsProvider({
       // O nome a ser exibido no formulário de login (por exemplo, 'Email e Senha')
@@ -77,8 +84,6 @@ export const authOptions = {
     // verifyRequest: '/auth/verify-request', // (Novo usuário) Verificar e-mail
     // newUser: null // Deixe como null para desabilitar a criação de novos usuários por provedores OAuth por padrão
   }
-}
-
-const handler = NextAuth(authOptions)
+})
 
 export { handler as GET, handler as POST } 
