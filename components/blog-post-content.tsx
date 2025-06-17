@@ -3,6 +3,8 @@
 import { motion } from "framer-motion"
 import { SocialShare } from "@/components/social-share"
 import Image from "next/image"
+import { Calendar, Clock } from "lucide-react"
+import { formatDate } from "@/lib/utils"
 
 interface BlogPostContentProps {
   post: {
