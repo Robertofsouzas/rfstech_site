@@ -56,18 +56,22 @@ export default function AdminAboutPage() {
         <CardDescription>Altere as informações da seção Sobre Mim do site principal.</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
-        <Input
-          label="Título"
-          value={data.title}
-          onChange={e => setData({ ...data, title: e.target.value })}
-          placeholder="Título da seção"
-        />
-        <Textarea
-          label="Descrição"
-          value={data.description}
-          onChange={e => setData({ ...data, description: e.target.value })}
-          placeholder="Descrição curta"
-        />
+        <div className="space-y-2">
+          <label className="font-medium">Título</label>
+          <Input
+            value={data.title}
+            onChange={e => setData({ ...data, title: e.target.value })}
+            placeholder="Título da seção"
+          />
+        </div>
+        <div className="space-y-2">
+          <label className="font-medium">Descrição</label>
+          <Textarea
+            value={data.description}
+            onChange={e => setData({ ...data, description: e.target.value })}
+            placeholder="Descrição curta"
+          />
+        </div>
         <div className="space-y-2">
           <label className="font-medium">Parágrafos</label>
           {data.paragraphs.map((p, i) => (
