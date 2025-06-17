@@ -20,13 +20,14 @@ const formatDate = (dateString: string) => {
   })
 }
 
-type Props = {
-  params: { id: string }
+interface PageProps {
+  params: Promise<{ id: string }>
   searchParams: { [key: string]: string | string[] | undefined }
 }
 
-export default async function BlogPostPage({ params }: Props) {
-  const post = blogPosts.find(p => p.id === parseInt(params.id)) || blogPosts[0]
+export default async function BlogPostPage({ params }: PageProps) {
+  const resolvedParams = await params
+  const post = blogPosts.find(p => p.id === parseInt(resolvedParams.id)) || blogPosts[0]
 
   return (
     <div className="flex min-h-screen flex-col">
