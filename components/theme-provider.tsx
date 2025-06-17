@@ -2,7 +2,12 @@
 
 import * as React from "react"
 
-const ThemeContext = React.createContext({
+interface ThemeContextType {
+  theme: string | null
+  setTheme: (theme: string) => void
+}
+
+const ThemeContext = React.createContext<ThemeContextType>({
   theme: null,
   setTheme: (theme: string) => {},
 })
