@@ -11,7 +11,6 @@ import { SiteFooter } from "@/components/site-footer"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { NewsletterForm } from "@/components/newsletter-form"
 import { Pagination } from "@/components/pagination"
 import { HeroCarousel } from "@/components/hero-carousel"
 import { blogPosts } from "@/config/blog"
@@ -205,9 +204,6 @@ export default function BlogPage() {
             )}
           </div>
         </section>
-
-        {/* Newsletter */}
-        <NewsletterForm />
       </main>
       <SiteFooter />
     </div>
