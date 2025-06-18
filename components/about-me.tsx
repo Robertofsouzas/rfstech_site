@@ -1,52 +1,57 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import { BarChart3, Brain, Code, Database, FileSpreadsheet, Workflow } from "lucide-react"
 import { motion } from "framer-motion"
 
+interface AboutData {
+  title: string
+  description: string
+  paragraphs: string[]
+}
+
 export function AboutMe() {
+  const [about, setAbout] = useState<AboutData | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetch("/config/about.json")
+      .then(res => res.json())
+      .then(json => {
+        setAbout(json)
+        setLoading(false)
+      })
+  }, [])
+
+  if (loading || !about) {
+    return (
+      <section className="w-full py-12 md:py-24 lg:py-32 bg-rfs-white dark:bg-rfs-darkBlue">
+        <div className="container px-4 md:px-6 text-center">
+          <p className="text-lg text-rfs-black/70 dark:text-rfs-white/70">Carregando...</p>
+        </div>
+      </section>
+    )
+  }
+
   return (
     <section className="w-full py-12 md:py-24 lg:py-32 bg-rfs-white dark:bg-rfs-darkBlue">
       <div className="container px-4 md:px-6">
         <div className="flex flex-col items-center justify-center space-y-4 text-center mb-8">
           <div className="space-y-2">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-rfs-darkBlue dark:text-rfs-white">
-              Sobre Mim
+              {about.title}
             </h2>
             <p className="max-w-[900px] text-rfs-black/70 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-rfs-white/70">
-              Analista de Dados BI | Transformando Dados em Estratégias com Impacto Tangível
+              {about.description}
             </p>
           </div>
         </div>
 
         <div className="mx-auto max-w-4xl space-y-8">
           <div className="prose prose-lg dark:prose-invert max-w-none text-rfs-black/80 dark:text-rfs-white/80">
-            <p>
-              Com mais de 4 anos de experiência em Business Intelligence, sou especializado em transformar dados brutos
-              em insights estratégicos que impulsionam decisões corporativas. Minha expertise abrange ferramentas como
-              Power BI, Microsoft Fabric, Databricks, Pentaho, SQL e Python, com foco em ETL, modelagem de dados,
-              automação de processos e governança de dados.
-            </p>
-
-            <p>
-              Tenho orgulho de ter atuado em empresas de grande porte, como a Petrobras, e em consultorias de TI
-              renomadas, como F5Data LTDA e FireDev IT Solution. Minha trajetória inclui liderar projetos de BI desde o
-              levantamento de requisitos até a implementação de soluções robustas de análise de dados, entregando valor
-              real para as organizações.
-            </p>
-
-            <p>
-              Além disso, possuo experiência avançada em automação de processos com n8n, criando fluxos de trabalho
-              inteligentes que otimizam operações e eliminam tarefas repetitivas. Minha expertise em integração de
-              sistemas permite conectar diferentes plataformas e APIs, criando ecossistemas de dados coesos e
-              eficientes.
-            </p>
-
-            <p>
-              Na área de Inteligência Artificial, desenvolvo soluções que combinam análise de dados tradicional com
-              algoritmos de IA para identificar padrões, prever tendências e gerar recomendações automatizadas. Trabalho
-              com modelos de machine learning e processamento de linguagem natural para extrair insights mais profundos
-              dos dados e criar dashboards inteligentes com capacidades preditivas.
-            </p>
+            {about.paragraphs.map((p, i) => (
+              <p key={i}>{p}</p>
+            ))}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
